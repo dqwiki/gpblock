@@ -43,11 +43,11 @@ print('We have %d cookies' % len(cookie_jar_meta))
 connection = requests.Session()
 connection.cookies = cookie_jar_meta  # Tell Requests session to use the cookiejar.
 
-meta =  Site('en.wikipedia.org', pool=connection)
+meta =  Site('meta.wikipedia.org', pool=connection)
 print("Login status: ")
 print(meta.logged_in)
 if not meta.logged_in:
-	meta.login(login.username,login.password)
+	meta.login(login.metauser,login.metapass)
 
 # Save cookies to file, including session cookies (expirydate=0)
 print(connection.cookies)
