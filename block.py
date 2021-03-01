@@ -3,7 +3,7 @@ from datetime import datetime, timezone, timedelta, time
 import sys, os, platform, requests
 import json, re
 
-import credentials
+import credentials as login
 from mwclient import Site
 
 cookies_file_en = '/data/project/deltaquad-bots/stewie-en.txt'
