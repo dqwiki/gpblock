@@ -53,11 +53,6 @@ print(connection.cookies)
 cookie_jar_meta.save(ignore_discard=True, ignore_expires=True)
 ###############
 
-enwiki =  mwclient.Site('en.wikipedia.org')
-enwiki.login(credentials.username,credentials.password)
-meta =  mwclient.Site('meta.wikimedia.org')
-meta.login(credentials.metauser,credentials.metapass)
-
 def callAPI(wiki,**params):
     if wiki=="enwiki":return enwiki.api(**params)
     if wiki=="meta":return meta.api(**params)
