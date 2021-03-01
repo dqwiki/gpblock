@@ -43,7 +43,7 @@ print('We have %d cookies' % len(cookie_jar_meta))
 connection = requests.Session()
 connection.cookies = cookie_jar_meta  # Tell Requests session to use the cookiejar.
 
-meta =  Site('meta.wikipedia.org', pool=connection)
+meta =  Site('meta.wikimedia.org', pool=connection)
 print("Login status: ")
 print(meta.logged_in)
 if not meta.logged_in:
