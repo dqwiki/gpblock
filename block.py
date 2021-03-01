@@ -1,10 +1,7 @@
 from http.cookiejar import MozillaCookieJar
-from datetime import datetime, timezone, timedelta
-import sys
-import platform
-import time
-import json
-import re
+from datetime import datetime, timezone, timedelta, time
+import sys, os, platform
+import json, re
 
 import credentials
 from mwclient import Site
