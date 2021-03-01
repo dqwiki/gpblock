@@ -118,7 +118,7 @@ def findblocks():
             continue
         if checkActive(expire):
             numberblocked+=1
-            print params
+            print(params)
             raw = callAPI(wiki="meta",**params)
             print("Blocked: "+ip)
             continue
