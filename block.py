@@ -100,7 +100,7 @@ def findblocks():
             }
     raw = callAPI(wiki="enwiki",**params)['query']['logevents']
     for block in raw:
-        ip=block['title'].split(':')[1]
+        ip=block['title'].split('User:')[1]#has to be user for IPv6 support
         expire=block['params']['expiry']
         comment=block['comment'].split("<!-- ")[1].split(" -->")[0]
         print('---New block---')
