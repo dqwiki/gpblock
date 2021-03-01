@@ -8,7 +8,7 @@ import credentials as login
 from mwclient import Site
 
 cookies_file_en = '/data/project/deltaquad-bots/stewie-en.txt'
-cookies_file_meta = '/data/project/deltaquad-bots/stewie-en.txt'
+cookies_file_meta = '/data/project/deltaquad-bots/stewie-meta.txt'
 
 #en login
 
