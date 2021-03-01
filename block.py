@@ -92,9 +92,10 @@ def findblocks():
             'list': 'logevents',
             'leprop': 'ids|title|type|timestamp|comment|details',
             'leaction': 'block/block',
-            #'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'lestart': '2021-02-27T20:00:00', #TEMP TO RECOVER
-            'leend': datetime.now() + timedelta(days=-60),
+            'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            ####Recovery line below
+            #'lestart': '2021-02-27T20:00:00', #TEMP TO RECOVER
+            'leend': datetime.now() + timedelta(days=-14),#most blocks are 14 days, so any longer is not worth it
             'leuser': 'ST47ProxyBot',
             'lelimit': '5000'
             }
