@@ -114,7 +114,7 @@ def findblocks():
         if checkActive(block['params']['expiry']):
             print("Blocked: "+block['title'].split(':')[1])
             numberblocked+=1
-            #raw = callAPI(wiki="meta",**params)
+            raw = callAPI(wiki="meta",**params)
             continue
         else:
             print("Skipping expired block: "+block['title'].split(':')[1])
