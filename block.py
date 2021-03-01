@@ -107,7 +107,7 @@ def findblocks():
         print('IP: '+ip)
         params = {"action": "globalblock",
                     "format": "json",
-                    "target": block['title'].split(':')[1],
+                    "target": ip,
                     "expiry": expire,
                     "reason": "[[m:NOP|No open proxies]]: <!-- " + comment + " -->",
                     "alsolocal": True,
@@ -117,9 +117,10 @@ def findblocks():
             print("Already blocked IP/range: "+ip)
             continue
         if checkActive(expire):
-            print("Blocked: "+ip)
             numberblocked+=1
+            print params
             raw = callAPI(wiki="meta",**params)
+            print("Blocked: "+ip)
             continue
         else:
             print("Skipping expired block: "+ip)
