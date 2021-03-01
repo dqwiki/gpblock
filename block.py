@@ -93,9 +93,9 @@ def findblocks():
             'leprop': 'ids|title|type|timestamp|comment|details',
             'leaction': 'block/block',
             'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'leend': datetime.now() + timedelta(days=-14),
+            'leend': datetime.now() + timedelta(days=-60),
             'leuser': 'ST47ProxyBot',
-            'lelimit': '200'
+            'lelimit': '5000'
             }
     raw = callAPI(wiki="enwiki",**params)['query']['logevents']
     for block in raw:
