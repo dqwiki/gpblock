@@ -14,7 +14,7 @@ cookies_file_meta = '/data/project/deltaquad-bots/stewie-en.txt'
 cookie_jar_en = MozillaCookieJar(cookies_file_en)
 if os.path.exists(cookies_file_en):
     # Load cookies from file, including session cookies (expirydate=0)
-    cookie_jar.load(ignore_discard=True, ignore_expires=True)
+    cookie_jar_en.load(ignore_discard=True, ignore_expires=True)
 print('We have %d cookies' % len(cookie_jar_en))
 
 connection = requests.Session()
@@ -33,10 +33,10 @@ cookie_jar_en.save(ignore_discard=True, ignore_expires=True)
 
 #meta login
 
-cookie_jar_en = MozillaCookieJar(cookies_file_meta)
+cookie_jar_meta = MozillaCookieJar(cookies_file_meta)
 if os.path.exists(cookies_file_meta):
     # Load cookies from file, including session cookies (expirydate=0)
-    cookie_jar.load(ignore_discard=True, ignore_expires=True)
+    cookie_jar_meta.load(ignore_discard=True, ignore_expires=True)
 print('We have %d cookies' % len(cookie_jar_meta))
 
 connection = requests.Session()
