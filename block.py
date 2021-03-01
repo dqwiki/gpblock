@@ -92,32 +92,37 @@ def findblocks():
             'list': 'logevents',
             'leprop': 'ids|title|type|timestamp|comment|details',
             'leaction': 'block/block',
-            'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            #'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'lestart': '2021-02-27T20:00:00', #TEMP TO RECOVER
             'leend': datetime.now() + timedelta(days=-60),
             'leuser': 'ST47ProxyBot',
             'lelimit': '5000'
             }
     raw = callAPI(wiki="enwiki",**params)['query']['logevents']
     for block in raw:
+        ip=block['title'].split(':')[1]
+        expire=block['params']['expiry']
+        comment=block['comment'].split("<!-- ")[1].split(" -->")[0]
         print('---New block---')
+        print('IP: '+ip)
         params = {"action": "globalblock",
                     "format": "json",
                     "target": block['title'].split(':')[1],
-                    "expiry": block['params']['expiry'],
-                    "reason": "[[m:NOP|No open proxies]]: <!-- "+block['comment'].split("<!-- ")[1].split(" -->")[0] + " -->",
+                    "expiry": expire,
+                    "reason": "[[m:NOP|No open proxies]]: <!-- " + comment + " -->",
                     "alsolocal": True,
                     "token": getToken(wiki="meta")
                   }
-        if checkExistGblock(block['title'].split(':')[1]):
-            print("Already blocked IP/range: "+block['title'].split(':')[1])
+        if checkExistGblock(ip):
+            print("Already blocked IP/range: "+ip)
             continue
-        if checkActive(block['params']['expiry']):
-            print("Blocked: "+block['title'].split(':')[1])
+        if checkActive(expire):
+            print("Blocked: "+ip)
             numberblocked+=1
             raw = callAPI(wiki="meta",**params)
             continue
         else:
-            print("Skipping expired block: "+block['title'].split(':')[1])
+            print("Skipping expired block: "+ip)
             continue
     print(numberblocked)
 findblocks()
