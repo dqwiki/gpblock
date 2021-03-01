@@ -1,3 +1,4 @@
+from http.cookiejar import MozillaCookieJar
 from datetime import datetime, timezone, timedelta
 import sys
 import platform
