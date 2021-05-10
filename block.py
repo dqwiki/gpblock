@@ -16,19 +16,15 @@ cookie_jar_en = MozillaCookieJar(cookies_file_en)
 if os.path.exists(cookies_file_en):
     # Load cookies from file, including session cookies (expirydate=0)
     cookie_jar_en.load(ignore_discard=True, ignore_expires=True)
-print('We have %d cookies' % len(cookie_jar_en))
 
 connection = requests.Session()
 connection.cookies = cookie_jar_en  # Tell Requests session to use the cookiejar.
 
 enwiki =  Site('en.wikipedia.org', pool=connection)
-print("Login status: ")
-print(enwiki.logged_in)
 if not enwiki.logged_in:
 	enwiki.login(login.username,login.password)
 
 # Save cookies to file, including session cookies (expirydate=0)
-print(connection.cookies)
 cookie_jar_en.save(ignore_discard=True, ignore_expires=True)
 ###############
 
@@ -38,19 +34,15 @@ cookie_jar_meta = MozillaCookieJar(cookies_file_meta)
 if os.path.exists(cookies_file_meta):
     # Load cookies from file, including session cookies (expirydate=0)
     cookie_jar_meta.load(ignore_discard=True, ignore_expires=True)
-print('We have %d cookies' % len(cookie_jar_meta))
 
 connection = requests.Session()
 connection.cookies = cookie_jar_meta  # Tell Requests session to use the cookiejar.
 
 meta =  Site('meta.wikimedia.org', pool=connection)
-print("Login status: ")
-print(meta.logged_in)
 if not meta.logged_in:
 	meta.login(login.metauser,login.metapass)
 
 # Save cookies to file, including session cookies (expirydate=0)
-print(connection.cookies)
 cookie_jar_meta.save(ignore_discard=True, ignore_expires=True)
 ###############
 
@@ -102,7 +94,7 @@ def findblocks():
         "reason": "GPB Sprint",
         "token": rightsToken
     }
-    print(callAPI(wiki="meta",**params))
+    print(meta.api(**params))
     numberblocked=0
     #https://en.wikipedia.org/w/api.php?action=query&format=json&list=logevents&leprop=ids%7Ctitle%7Ctype%7Ctimestamp%7Ccomment%7Cdetails%7Cparsedcomment&leaction=block%2Fblock&lestart=2021-02-14T22%3A24%3A31.000Z&leuser=ProcseeBot&lelimit=100
     
