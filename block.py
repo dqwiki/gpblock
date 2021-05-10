@@ -105,54 +105,5 @@ def findblocks():
     callAPI(wiki="meta",**params)
     numberblocked=0
     #https://en.wikipedia.org/w/api.php?action=query&format=json&list=logevents&leprop=ids%7Ctitle%7Ctype%7Ctimestamp%7Ccomment%7Cdetails%7Cparsedcomment&leaction=block%2Fblock&lestart=2021-02-14T22%3A24%3A31.000Z&leuser=ProcseeBot&lelimit=100
-    params = {'action': 'query',
-            'format': 'json',
-            'list': 'logevents',
-            'leprop': 'ids|title|type|timestamp|comment|details',
-            'leaction': 'block/block',
-            'lestart': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-            ####Recovery line below
-            #'lestart': '2021-02-27T20:00:00', #TEMP TO RECOVER
-            'leend': datetime.now() + timedelta(days=-14),#most blocks are 14 days, so any longer is not worth it
-            'leuser': 'ST47ProxyBot',
-            'lelimit': '5000'
-            }
-    raw = callAPI(wiki="enwiki",**params)['query']['logevents']
-    for block in raw:
-        ip=block['title'].split('User:')[1]#has to be user for IPv6 support
-        expire=block['params']['expiry']
-        comment=block['comment'].split("<!-- ")[1].split(" -->")[0]
-        print('---New block---')
-        print('IP: '+ip)
-        params = {"action": "globalblock",
-                    "format": "json",
-                    "target": ip,
-                    "expiry": expire,
-                    "reason": "[[m:NOP|No open proxies]]: <!-- " + comment + " -->",
-                    "alsolocal": True,
-                    "token": getToken(wiki="meta")
-                  }
-        if checkExistGblock(ip):
-            print("Already blocked IP/range: "+ip)
-            continue
-        if checkActive(expire):
-            numberblocked+=1
-            print(params)
-            raw = callAPI(wiki="meta",**params)
-            print("Blocked: "+ip)
-            continue
-        else:
-            print("Skipping expired block: "+ip)
-            continue
-    print(numberblocked)
-    rightsToken = getRightsToken()
-    params = {
-        "action": "userrights",
-        "format": "json",
-        "user": "AmandaNP",
-        "remove": "flood",
-        "reason": "GPB Sprint done. "+numberblocked+" additional blocks",
-        "token": rightsToken
-    }
-    callAPI(wiki="meta",**params)
+    
 findblocks()
