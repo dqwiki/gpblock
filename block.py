@@ -65,6 +65,14 @@ def getToken(wiki):
               }
     if wiki=="enwiki":return enwiki.api(**params)['query']['tokens']['csrftoken']
     if wiki=="meta":return meta.api(**params)['query']['tokens']['csrftoken']
+def getRightsToken():
+    params = {
+        "action": "query",
+        "format": "json",
+        "meta": "tokens",
+        "type": "userrights"
+    }
+    return meta.api(**params)['query']['tokens']['userrightstoken']
 def checkActive(oldtime):
     then = time.strptime(oldtime, "%Y-%m-%dT%H:%M:%SZ")
     now = time.gmtime()
@@ -85,6 +93,16 @@ def checkExistGblock(ip):
         else:return False
     except:return False
 def findblocks():
+    rightsToken = getRightsToken()
+    params = {
+        "action": "userrights",
+        "format": "json",
+        "user": "AmandaNP",
+        "add": "flood",
+        "reason": "GPB Sprint",
+        "token": rightsToken
+    }
+    callAPI(wiki="meta",**params)
     numberblocked=0
     #https://en.wikipedia.org/w/api.php?action=query&format=json&list=logevents&leprop=ids%7Ctitle%7Ctype%7Ctimestamp%7Ccomment%7Cdetails%7Cparsedcomment&leaction=block%2Fblock&lestart=2021-02-14T22%3A24%3A31.000Z&leuser=ProcseeBot&lelimit=100
     params = {'action': 'query',
@@ -127,4 +145,14 @@ def findblocks():
             print("Skipping expired block: "+ip)
             continue
     print(numberblocked)
+    rightsToken = getRightsToken()
+    params = {
+        "action": "userrights",
+        "format": "json",
+        "user": "AmandaNP",
+        "remove": "flood",
+        "reason": "GPB Sprint done. "+numberblocked+" additional blocks",
+        "token": rightsToken
+    }
+    callAPI(wiki="meta",**params)
 findblocks()
