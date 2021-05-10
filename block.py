@@ -102,7 +102,7 @@ def findblocks():
         "reason": "GPB Sprint",
         "token": rightsToken
     }
-    callAPI(wiki="meta",**params)
+    print callAPI(wiki="meta",**params)
     numberblocked=0
     #https://en.wikipedia.org/w/api.php?action=query&format=json&list=logevents&leprop=ids%7Ctitle%7Ctype%7Ctimestamp%7Ccomment%7Cdetails%7Cparsedcomment&leaction=block%2Fblock&lestart=2021-02-14T22%3A24%3A31.000Z&leuser=ProcseeBot&lelimit=100
     
